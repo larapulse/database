@@ -22,7 +22,7 @@ class TransactionPDO extends PDO
      *
      * @return bool
      */
-    protected function hasSavepoint()
+    protected function hasSavepoint() : bool
     {
         return in_array($this->getAttribute(PDO::ATTR_DRIVER_NAME), self::$supportedDrivers);
     }
