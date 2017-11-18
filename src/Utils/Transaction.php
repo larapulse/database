@@ -56,7 +56,7 @@ class Transaction
      *
      * @return bool
      */
-    public static function begin($connection = null)
+    public static function begin($connection = null) : bool
     {
         return self::getConnection($connection)
             ? self::getConnection($connection)->beginTransaction()
@@ -70,7 +70,7 @@ class Transaction
      *
      * @return bool
      */
-    public static function commit($connection = null)
+    public static function commit($connection = null) : bool
     {
         return self::getConnection($connection)
             ? self::getConnection($connection)->commit()
@@ -84,7 +84,7 @@ class Transaction
      *
      * @return bool
      */
-    public static function rollback($connection = null)
+    public static function rollback($connection = null) : bool
     {
         return self::getConnection($connection)
             ? self::getConnection($connection)->rollBack()
@@ -131,7 +131,7 @@ class Transaction
      * @return bool
      * @throws TransactionException
      */
-    public static function try(Closure $callback, $attempts = 1, $connection = null)
+    public static function attempt(Closure $callback, int $attempts = 1, $connection = null)
     {
         $attempts = max(1, $attempts);
         $currentAttempt = 0;

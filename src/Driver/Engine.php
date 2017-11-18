@@ -21,6 +21,7 @@ final class Engine
         'charset'   => 'utf8',
         'type'      => 'mysql',
         'port'      => 3306,    // 3306 for MySQL, 5432 (or 5433) for PostgreSQL
+        'options'   => [],
     ];
 
     /**
@@ -104,7 +105,7 @@ final class Engine
             $options += self::fetchMySqlOptions($config);
         }
 
-        return $customOptions + $options;
+        return $customOptions + $config['options'] + $options;
     }
 
     /**

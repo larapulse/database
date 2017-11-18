@@ -31,6 +31,91 @@ $config = [
 $connection = new League\Database\ConnectionManager('core', $config);
 ```
 
+### `BulkSql` usage
+
+Bulk SQL classes could be useful in scripts, when you need to insert big amount of records.
+
+**Example 1:**
+
+<details>
+    <summary>`BulkInsert` usage</summary>
+    
+``` php
+use League\Database\BulkSql\BulkInsert;
+
+$db = $connection->getMasterConnection();
+
+$bulkInsert = new BulkInsert($db, 'users');
+$bulkInsert
+    ->setItemsPerQuery(50)
+    ->useIgnore()
+    ->disableIndexes();
+
+try {
+    $db->beginTransaction();
+    
+    foreach ($users as $user) {
+        $bulkInsert->add($user);
+    }
+    
+    $bulkInsert->finish();
+    $affectedCount = $bulkInsert->getAffectedCount();
+    
+    $db->commit();
+} catch (\PDOException $e) {
+    $db->rollBack();
+}
+```
+</details>
+
+**Example 2:**
+
+<details>
+    <summary>`BulkReplace` and `BulkDelete` usage (could be useful with feeds)</summary>
+    
+``` php
+use League\Database\BulkSql\BulkReplace;
+use League\Database\BulkSql\BulkDelete;
+
+$db = $connection->getMasterConnection();
+
+$bulkReplace = new BulkReplace($db, 'offers');
+$bulkReplace->setItemsPerQuery(500);
+$bulkDelete = new BulkDelete($db, 'offers');
+$bulkDelete->setItemsPerQuery(1000);
+
+try {
+    $db->beginTransaction();
+    
+    foreach ($offers as $offer) {
+        $flag = $offer['deltaStatus'] ?? null;
+        
+        switch ($delta) {
+            case 'REMOVE':
+                $bulkDelete->add(['id' => $data['id']]);
+                break;
+            case 'ADD':
+                $bulkReplace->add($data);
+                break;
+            default:
+                $logger->notice("Unsupported delta flag \"{$flag}\"";
+        }
+    }
+
+    $bulkReplace->finish();
+    $bulkDelete->finish();
+    
+    $db->commit();
+    
+    $insertsCount = $bulkReplace->getInsertedCount();
+    $updatesCount = $bulkReplace->getReplacedCount();
+    $deletesCount = $bulkDelete->getAffectedCount();
+} catch (\PDOException $e) {
+    $db->rollBack();
+}
+```
+</details>
+
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
