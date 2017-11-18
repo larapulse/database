@@ -151,9 +151,9 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-downloads]: https://img.shields.io/packagist/dt/thephpleague/database.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/thephpleague/database
-[link-travis]: https://travis-ci.org/thephpleague/database
-[link-scrutinizer]: https://scrutinizer-ci.com/g/thephpleague/database/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/thephpleague/database
+[link-travis]: https://travis-ci.org/SergeyPodgornyy/database
+[link-scrutinizer]: https://scrutinizer-ci.com/g/SergeyPodgornyy/database/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/SergeyPodgornyy/database
 [link-downloads]: https://packagist.org/packages/thephpleague/database
 [link-author]: https://github.com/SergeyPodgornyy
 [link-contributors]: ../../contributors
