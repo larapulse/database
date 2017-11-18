@@ -25,6 +25,10 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ### Fixed
 - Methods return types in `Utils\Transaction`
+- `League\Database\Utils\Transaction` rename method `try` to `attempt`
+
+### Removed
+- `hhvm` support from `travis-ci.yml`
 
 ***
 

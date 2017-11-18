@@ -131,7 +131,7 @@ class Transaction
      * @return bool
      * @throws TransactionException
      */
-    public static function try(Closure $callback, int $attempts = 1, $connection = null)
+    public static function attempt(Closure $callback, int $attempts = 1, $connection = null)
     {
         $attempts = max(1, $attempts);
         $currentAttempt = 0;
