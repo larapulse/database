@@ -10,8 +10,8 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="thephpleague Test Suite">
-            <directory>tests</directory>
+        <testsuite name="Database Test Suite">
+            <directory>tests/Tests</directory>
         </testsuite>
     </testsuites>
     <filter>

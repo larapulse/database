@@ -1,6 +1,6 @@
 <?php
 
-namespace League\Database;
+namespace League\Database\Tests;
 
 use PHPUnit\Framework\TestCase;
 

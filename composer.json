@@ -20,6 +20,7 @@
     ],
     "require": {
         "php": "~7.0",
+        "ext-pdo": "*",
         "illuminate/support": "^5.5"
     },
     "require-dev": {
@@ -33,7 +34,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "League\\Database\\": "tests"
+            "League\\Database\\Tests\\": "tests/Tests",
+            "League\\Database\\Performance\\": "tests/Performance"
         }
     },
     "scripts": {
@@ -43,7 +45,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0-dev"
+            "dev-master": "1.2.x-dev"
         }
     },
     "config": {
