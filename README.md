@@ -1,4 +1,4 @@
-# database
+# Database
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
@@ -145,9 +145,9 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [ico-version]: https://img.shields.io/packagist/v/thephpleague/database.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/thephpleague/database/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/thephpleague/database.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/thephpleague/database.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/SergeyPodgornyy/database/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/SergeyPodgornyy/database.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/SergeyPodgornyy/database.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/thephpleague/database.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/thephpleague/database
