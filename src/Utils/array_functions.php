@@ -3,7 +3,8 @@
 namespace League\Database\Utils;
 
 /**
- * Determines if an array is associative.
+ * Determines if an array is associative
+ * @deprecated and will removed in further MINOR version
  *
  * An array is "associative" if it doesn't have sequential numerical keys beginning with zero.
  *
@@ -19,6 +20,7 @@ function array_is_assoc(array $array)
 
 /**
  * Get depth of array
+ * @deprecated and will removed in further MINOR version
  *
  * @param array $array
  *
@@ -42,7 +44,8 @@ function array_depth(array $array)
 }
 
 /**
- * Flatten a multi-dimensional array into a single level.
+ * Flatten a multi-dimensional array into a single level
+ * @deprecated and will removed in further MINOR version
  *
  * @param  array  $array
  * @param  int  $depth
@@ -63,6 +66,7 @@ function array_flatten(array $array, $depth = INF)
 
 /**
  * Flatten a multi-dimensional array into a single level with saving keys
+ * @deprecated and will removed in further MINOR version
  *
  * @param  array  $array
  * @return array
@@ -84,6 +88,7 @@ function array_flatten_assoc(array $array)
 
 /**
  * Check if array contains from specific types
+ * @deprecated and will removed in further MINOR version
  *
  * @param array  $array
  * @param string $type

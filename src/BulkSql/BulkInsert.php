@@ -5,8 +5,6 @@ namespace League\Database\BulkSql;
 use PDOStatement;
 use League\Database\Traits\BulkSqlTrait;
 use League\Database\Exceptions\LogicException;
-use function League\Database\Utils\array_is_assoc;
-use function League\Database\Utils\array_depth;
 
 class BulkInsert extends Base
 {
