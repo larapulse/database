@@ -4,6 +4,11 @@ All notable changes to `database` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 2017-11-22
+
+### Deprecated
+- Usage of `Utils/array_functions.php` and will be completely deleted in next MINOR release
+
 ## 2017-11-18
 
 ### Added
