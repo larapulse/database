@@ -32,10 +32,11 @@ final class Engine
     /**
      * Set connection with database
      *
-     * @param string $name      Unique name for connection
-     * @param array  $config    Configuration settings for database connection
-     * @param array  $options   Some specific options
+     * @param string $name    Unique name for connection
+     * @param array  $config  Configuration settings for database connection
+     * @param array  $options Some specific options
      *
+     * @throws \League\Database\Exceptions\InvalidArgumentException
      * @return bool|TransactionPDO
      */
     public static function setConnection(string $name, array $config, array $options = [])

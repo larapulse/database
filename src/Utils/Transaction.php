@@ -58,9 +58,7 @@ class Transaction
      */
     public static function begin($connection = null) : bool
     {
-        return self::getConnection($connection)
-            ? self::getConnection($connection)->beginTransaction()
-            : false;
+        return self::getConnection($connection) && self::getConnection($connection)->beginTransaction();
     }
 
     /**
@@ -72,9 +70,7 @@ class Transaction
      */
     public static function commit($connection = null) : bool
     {
-        return self::getConnection($connection)
-            ? self::getConnection($connection)->commit()
-            : false;
+        return self::getConnection($connection) && self::getConnection($connection)->commit();
     }
 
     /**
@@ -82,26 +78,26 @@ class Transaction
      *
      * @param string|TransactionPDO $connection
      *
+     * @throws \PDOException
      * @return bool
      */
     public static function rollback($connection = null) : bool
     {
-        return self::getConnection($connection)
-            ? self::getConnection($connection)->rollBack()
-            : false;
+        return self::getConnection($connection) && self::getConnection($connection)->rollBack();
     }
 
     /**
      * Perform some callback while transaction execution
      *
-     * @param Closure $callback
-     * @param null    $connection
+     * @param Closure               $callback
+     * @param string|TransactionPDO $connection
      *
      * @throws LogicException
      * @throws TransactionException
      */
     public static function perform(Closure $callback, $connection = null)
     {
+        /** @var TransactionPDO|bool $connection */
         $connection = self::getConnection($connection);
 
         if ($connection === false) {
