@@ -151,7 +151,7 @@ abstract class Base implements IBulkSql, IGeneralSql
 
         // On first query check disable indeces
         if ($this->isIndexesDisabled() && $this->affectedCount === 0) {
-            $this->getDbConnection()->exec('ALTER TABLE ' . $this->getTable() . ' DISABLE KEYS');
+            $this->getDbConnection()->exec("ALTER TABLE {$this->getTable()} DISABLE KEYS");
         }
 
         $query = $this->buildQuery();
@@ -182,7 +182,7 @@ abstract class Base implements IBulkSql, IGeneralSql
 
         // Re-enable indexes
         if ($this->isIndexesDisabled()) {
-            $this->getDbConnection()->exec('ALTER TABLE ' . $this->getTable() . ' ENABLE KEYS');
+            $this->getDbConnection()->exec("ALTER TABLE {$this->getTable()} ENABLE KEYS");
         }
 
         $this->isFinished = true;

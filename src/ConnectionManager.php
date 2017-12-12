@@ -12,40 +12,31 @@ final class ConnectionManager
      *
      * @var TransactionPDO
      */
-    private $masterConnection = null;
+    private $masterConnection;
 
     /**
      * Slave database connection
      *
      * @var TransactionPDO|null
      */
-    private $slaveConnection = null;
+    private $slaveConnection;
 
     /**
      * PDOManager constructor
-     *
-     * @param string $name      Unique name for connection
-     * @param array  $config    Configuration settings for database connection
-     */
-    public function __construct(string $name, array $config)
-    {
-        $this->setConnection($name, $config);
-    }
-
-    /**
      * Initialize connection to Database for master and slave (if applicable)
      *
      * @param string $name      Unique name for connection
      * @param array  $config    Configuration settings for database connection
+     * @param array  $options   Some specific options
      */
-    private function setConnection(string $name, array $config)
+    public function __construct(string $name, array $config, array $options = [])
     {
         $masterConf = $config['master'] ?? $config;
         $slaveConf = $config['slave'] ?? [];
 
-        $this->masterConnection = Engine::setConnection($name.'_master', $masterConf);
+        $this->masterConnection = Engine::setConnection($name.'_master', $masterConf, $options);
         $this->slaveConnection = $slaveConf
-            ? Engine::setConnection($name.'_slave', $slaveConf)
+            ? Engine::setConnection($name.'_slave', $slaveConf, $options)
             : null;
     }
 

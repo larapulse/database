@@ -10,7 +10,7 @@ class TransactionPDO extends PDO
     /**
      * @var array   Database drivers that support SAVEPOINT * statements.
      */
-    protected static $supportedDrivers = ["pgsql", "mysql"];
+    protected static $supportedDrivers = ['pgsql', 'mysql'];
 
     /**
      * @var int     Current transaction depth
@@ -24,7 +24,7 @@ class TransactionPDO extends PDO
      */
     protected function hasSavepoint() : bool
     {
-        return in_array($this->getAttribute(PDO::ATTR_DRIVER_NAME), self::$supportedDrivers);
+        return in_array($this->getAttribute(PDO::ATTR_DRIVER_NAME), self::$supportedDrivers, true);
     }
 
     /**
