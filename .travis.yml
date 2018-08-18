@@ -4,6 +4,8 @@ language: php
 php:
   - 7.0
   - 7.1
+  - hhvm
+  - nightly
 
 # This triggers builds to run on the new TravisCI infrastructure.
 # See: http://docs.travis-ci.com/user/workers/container-based-infrastructure/
@@ -19,12 +21,58 @@ matrix:
     - php: 7.0
       env: 'COMPOSER_FLAGS="--prefer-stable --prefer-lowest"'
 
+env:
+  - DB=sqlite
+  - DB=mysql
+  - DB=postgres
+
+before_install:
+  - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
+  - composer self-update
+
 before_script:
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
+  - sh -c "if [ '$DB' = 'postgres' ]; then psql -c 'DROP DATABASE IF EXISTS tests;' -U postgres; fi"
+  - sh -c "if [ '$DB' = 'postgres' ]; then psql -c 'DROP DATABASE IF EXISTS tests_tmp;' -U postgres; fi"
+  - sh -c "if [ '$DB' = 'postgres' ]; then psql -c 'CREATE DATABASE tests;' -U postgres; fi"
+  - sh -c "if [ '$DB' = 'postgres' ]; then psql -c 'CREATE DATABASE tests_tmp;' -U postgres; fi"
+  - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'CREATE DATABASE IF NOT EXISTS tests_tmp; CREATE DATABASE IF NOT EXISTS tests;'; fi"
+  - ENABLE_SECOND_LEVEL_CACHE=0 ./vendor/bin/phpunit -v -c tests/travis/$DB.travis.xml
+  - ENABLE_SECOND_LEVEL_CACHE=1 ./vendor/bin/phpunit -v -c tests/travis/$DB.travis.xml --exclude-group performance,non-cacheable,locking_functional
 
 script:
   - vendor/bin/phpcs --standard=psr2 src/
   - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+
+jobs:
+  include:
+    - stage: test
+      env: DB=mariadb
+      addons:
+        mariadb: 10.1
+
+    - stage: test
+      env: DB=mysql MYSQL_VERSION=5.7
+      php: 7.1
+      before_script:
+        - ./tests/travis/install-mysql-$MYSQL_VERSION.sh
+      sudo: required
+
+    - stage: test
+      env: DB=mysql MYSQL_VERSION=5.7
+      php: nightly
+      before_script:
+        - ./tests/travis/install-mysql-$MYSQL_VERSION.sh
+      sudo: required
+
+    - stage: Benchmark
+      env: DB=none
+      before_script: wget https://phpbench.github.io/phpbench/phpbench.phar https://phpbench.github.io/phpbench/phpbench.phar.pubkey
+      script: php phpbench.phar run -l dots --report=default
+
+  allow_failures:
+    - php: nightly
+    - php: hhvm
 
 after_script:
   - |
